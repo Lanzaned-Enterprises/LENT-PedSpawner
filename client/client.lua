@@ -106,6 +106,15 @@ function createPeds()
             SetPedComponentVariation(PedCreated[k], 6, v["shoes"], v["S_Texture"], 0)
             SetPedHeadBlendData(PedCreated[k], v["mother"], v["father"], 0,0, 0, 0, 0, v["mix"], 0, false)
             SetPedHairColor(PedCreated[k], v["HAIR_Texture"], v["HAIR_HIGHLIGHT"])
+            SetPedHeadOverlay(PedCreated[k], 4, v["makeup"], v["makeup_OPACITY"])
+            SetPedHeadOverlayColor(PedCreated[k], 4, 1, v["makeup_COLOR"], 0)
+            SetPedHeadOverlay(PedCreated[k], 8, v["lipstick"], v["lipstick_OPACITY"])
+            SetPedHeadOverlayColor(PedCreated[k], 8, 1, v["lipstick_COLOR"], 0)
+            SetPedHeadOverlay(PedCreated[k], 2, v["eyebrows"], v["eyebrows_OPACITY"])
+            SetPedHeadOverlayColor(PedCreated[k], 2, 1, v["eyebrows_COLOR"], 0)
+            SetPedHeadOverlay(PedCreated[k], 1, v["beard"], v["eyebrows_OPACITY"])
+            SetPedHeadOverlayColor(PedCreated[k], 1, 1, v["beard_COLOR"], 0)
+            SetPedEyeColor(PedCreated[k], v['eye_COLOR'])
         end 
         -- Natives should really be used more they're neat to spawn MP characters
 

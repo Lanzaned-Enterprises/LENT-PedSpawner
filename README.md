@@ -14,12 +14,17 @@ The PedSpawner can be used for a few different scenario's. You can use them to c
 |----       |----     |
 |           |         |
 
-# Contributors
+## Contributors
 |  Rank       |  Member       | ID                 | Qualifications                       |
 |----         |----           |----                |----                                  |
 | Director    | [Lanzaned#2512](https://discordapp.com/users/871877975346405388) | [871877975346405388](https://discordapp.com/users/871877975346405388) | Javascript, XML, HTML, CSS, lua, SQL |
+| Contributer | [AnnaLou#1509](https://discordapp.com/users/585839151564193812) | [585839151564193812](https://discordapp.com/users/585839151564193812) | lua |
 
-# Useful Links 
+## Credits
+[AnnaLou#1509](https://discordapp.com/users/585839151564193812) | https://github.com/Annalouu
+- Adding natives for makeup
+
+## Useful Links 
 Discord: https://discord.gg/kmKcHWGqbP<br>
 Github: https://github.com/Lanzaned-Enterprises<br>
 Documentation: https://lanzaned-development.gitbook.io/lanzaned-development-or-documentation/
