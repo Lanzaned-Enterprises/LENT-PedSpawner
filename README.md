@@ -22,7 +22,7 @@ The PedSpawner can be used for a few different scenario's. You can use them to c
 
 ## Credits
 [AnnaLou#1509](https://discordapp.com/users/585839151564193812) | https://github.com/Annalouu
-- Adding natives for makeup
+- Adding natives for makeup.
 
 ## Useful Links 
 Discord: https://discord.gg/kmKcHWGqbP<br>

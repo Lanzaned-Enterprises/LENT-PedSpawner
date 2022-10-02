@@ -38,5 +38,5 @@ Peds.Placings = {
         -- ["lipstick"] = 0, ["lipstick_OPACITY"] = 1.0, ["lipstick_COLOR"] = 21, -- leave opacity at 1.0
         -- ["eyebrows"] = 0, ["eyebrows_OPACITY"] = 1.0, ["eyebrows_COLOR"] = 1, -- leave opacity at 1.0
         -- ["beard"] = -1, ["beard_OPACITY"] = 1.0, ["beard_COLOR"] = 1, -- leave opacity at 1.0
-    -- },
+    -- }, 
 }
