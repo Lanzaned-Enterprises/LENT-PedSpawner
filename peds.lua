@@ -23,8 +23,7 @@ Peds.Placings = {
         -- [[ Do recommand that you use a clothing menu to get the right ID's ]] --
         -- ["clothing"] = true, -- True if ped = "mp_m_freemode_01" || "mp_f_freemode_01" else leave false
         -- ["mother"] = 0, ["father"] = 0, ["mix"] = 0.0,
-        -- ["head"] = 1, ["H_Texture"] = 0,
-        -- ["HAIR_Texture"] = 3, ["HAIR_HIGHLIGHT"] = 0,
+        -- ["head"] = 7, ["HAIR_Texture"] = 3, ["HAIR_HIGHLIGHT"] = 0,
         -- ["hands"] = 1, ["HA_Texture"] = 0,
         -- ["undershirts"] = 1, ["U_Texture"] = 0,
         -- ["tops"] = 1, ["T_Texture"] = 0,
@@ -56,7 +55,7 @@ Peds.Placings = {
  
         ["clothing"] = true, -- True if ped = "mp_m_freemode_01" || "mp_f_freemode_01" else leave false
         ["father"] = 0, ["mother"] = 0,
-        ["head"] = 4, ["H_Texture"] = 1,
+        ["head"] = 7, ["HAIR_Texture"] = 3, ["HAIR_HIGHLIGHT"] = 0,
         ["hands"] = 1, ["HA_Texture"] = 0,
         ["undershirts"] = 198, ["U_Texture"] = 0,
         ["tops"] = 416, ["T_Texture"] = 2,
@@ -120,8 +119,7 @@ Peds.Placings = {
 
         ["clothing"] = false,
         ["mother"] = 0, ["father"] = 0, ["mix"] = 0.0,
-        ["head"] = 1, ["H_Texture"] = 0,
-        ["HAIR_Texture"] = 3, ["HAIR_HIGHLIGHT"] = 0,
+        ["head"] = 1, ["HAIR_Texture"] = 3, ["HAIR_HIGHLIGHT"] = 0,
         ["hands"] = 1, ["HA_Texture"] = 0,
         ["undershirts"] = 1, ["U_Texture"] = 0,
         ["tops"] = 1, ["T_Texture"] = 0,
