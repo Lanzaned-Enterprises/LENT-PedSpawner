@@ -22,7 +22,9 @@ Peds.Placings = {
 
         -- [[ Do recommand that you use a clothing menu to get the right ID's ]] --
         -- ["clothing"] = true, -- True if ped = "mp_m_freemode_01" || "mp_f_freemode_01" else leave false
+        -- ["mother"] = 0, ["father"] = 0, ["mix"] = 0.0,
         -- ["head"] = 1, ["H_Texture"] = 0,
+        -- ["HAIR_Texture"] = 3, ["HAIR_HIGHLIGHT"] = 0,
         -- ["hands"] = 1, ["HA_Texture"] = 0,
         -- ["undershirts"] = 1, ["U_Texture"] = 0,
         -- ["tops"] = 1, ["T_Texture"] = 0,

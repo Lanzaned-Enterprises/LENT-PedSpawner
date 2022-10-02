@@ -95,7 +95,6 @@ function createPeds()
         -- Clothing for MP Characters
         if v["clothing"] then
             SetPedComponentVariation(PedCreated[k], 2, v["head"], v["H_Texture"], 0)
-            SetPedHairColor(PedCreated[k], v["H_Texture"], 0)
             SetPedComponentVariation(PedCreated[k], 3, v["hands"], v["HA_Texture"], 0)
             SetPedComponentVariation(PedCreated[k], 8, v["undershirts"], v["U_Texture"], 0)
             SetPedComponentVariation(PedCreated[k], 11, v["tops"], v["T_Texture"], 0)
@@ -105,6 +104,8 @@ function createPeds()
             SetPedComponentVariation(PedCreated[k], 5, v["bags"], v["B_Texture"], 0)
             SetPedComponentVariation(PedCreated[k], 4, v["pants"], v["P_Texture"], 0)
             SetPedComponentVariation(PedCreated[k], 6, v["shoes"], v["S_Texture"], 0)
+            SetPedHeadBlendData(PedCreated[k], v["mother"], v["father"], 0,0, 0, 0, 0, v["mix"], 0, false)
+            SetPedHairColor(PedCreated[k], v["HAIR_Texture"], v["HAIR_HIGHLIGHT"])
         end 
         -- Natives should really be used more they're neat to spawn MP characters
 
