@@ -10,7 +10,7 @@ github 'https://github.com/Lanzaned-Enterprises/LENT-PedSpawner'
 docs 'https://lanzaned-development.gitbook.io/lanzaned-development-or-documentation/'
 
 -- [[ Version ]] --
-version '1.1.0'
+version '1.1.1'
 
 -- [[ Dependencies ]] --
 dependencies {
@@ -22,6 +22,10 @@ dependencies {
 -- [[ Files ]] --
 shared_scripts {
     'peds.lua',
+}
+
+server_scripts {
+    'server/*.lua',
 }
 
 client_scripts {
