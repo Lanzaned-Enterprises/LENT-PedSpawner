@@ -10,9 +10,9 @@ This resource was made with the extensive purpose of using mp_freemode character
 The PedSpawner can be used for a few different scenario's. You can use them to create guards for areas you don't want your players to access even having the ability to make them invincible. You can execute events from other scripts which might give you rewards, items, money or other things wished on the owner / developers choosing.
 
 ## Issues
-|  Question                                     |  Answer                                                                       |
-|----                                           |----                                                                           |
-| Hostile Peds are Godmoded & Don't move        | We are aware of the issue and this should be fixed within the coming updates! |
+|  Question |  Answer |
+|----       |----     |
+|           |         |
 
 # Contributors
 |  Rank       |  Member       | ID                 | Qualifications                       |

@@ -6,9 +6,13 @@ Peds.Placings = {
         
         -- ["ped"] = "mp_m_freemode_01", -- The model of chracter that you interact with
         -- ["scenario"] = "WORLD_HUMAN_CLIPBOARD", -- The animation they are playing
-        
-        -- ["weapon"] = "", -- Leave empty when using Scenario
-        -- ["hostile"] = false, -- Should the ped attack the player
+        -- ["block_events"] = true, -- Will block the ped from moving when hit or bumped into
+        -- ["invincible"] = true, -- Makes the ped invincible
+        -- ["freeze"] = true, -- Freezes the ped in it's location
+  
+        -- ["weapon"] = false, -- Leave false when using Scenario
+        -- ["weapon_hash"] = "", -- Should be hash like "WEAPON_CARBINERIFLE"
+        -- ["hostile"] = false, -- Should the ped attack the player?
 
         -- ["target"] = false, -- True = Allows interaction | False = Doesn't allow
         -- ["type"] = "",

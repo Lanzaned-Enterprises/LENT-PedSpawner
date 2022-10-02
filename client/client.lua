@@ -52,20 +52,30 @@ function createPeds()
         
         -- Start the scneario in a basic loop
         TaskStartScenarioInPlace(PedCreated[k], v["scenario"], true)
-        -- Let the entity stay in posistion
-        FreezeEntityPosition(PedCreated[k], true)
-        -- Set the ped to be invincible
-        SetEntityInvincible(PedCreated[k], true)
+        
+        if v["freeze"] then
+            -- Let the entity stay in posistion
+            FreezeEntityPosition(PedCreated[k], true)
+        end
 
-        -- Give the ped a weapon with 999 ammo
-        GiveWeaponToPed(PedCreated[k], v["weapon"], 999, false, true) -- Give them the specified weapon with ammo
-        -- Set the weapon equiped
-        SetCurrentPedWeapon(PedCreated[k], v["weapon"], true)
-        -- Let the ped switch weapons
-        SetPedCanSwitchWeapon(PedCreated[k], true) -- Allow them to switch weapon if applicible
+        if v["invincible"] then
+            -- Set the ped to be invincible
+            SetEntityInvincible(PedCreated[k], true)
+        end
+
+        if v["weapon"] then
+            -- Give the ped a weapon with 999 ammo
+            GiveWeaponToPed(PedCreated[k], v["weapon_hash"], 999, false, true) -- Give them the specified weapon with ammo
+            -- Set the weapon equiped
+            SetCurrentPedWeapon(PedCreated[k], v["weapon_hash"], true)
+            -- Let the ped switch weapons
+            SetPedCanSwitchWeapon(PedCreated[k], true) -- Allow them to switch weapon if applicible
+        end
 
         -- Block events like bumping
-        SetBlockingOfNonTemporaryEvents(PedCreated[k], true)
+        if v["block_events"] then
+            SetBlockingOfNonTemporaryEvents(PedCreated[k], true)
+        end
 
         -- Target Stuff.. Read Config
         if v["target"] then
@@ -98,8 +108,6 @@ function createPeds()
         end 
         -- Natives should really be used more they're neat to spawn MP characters
 
-        -- Set the ped hostile though due to above reasons it will be invincible and not move
-        -- Will be fixed in V1.1
         if v["hostile"] then
             SetPedAsEnemy(PedCreated[k], true) -- Ped is now an enemy
             SetPedCombatMovement(PedCreated[k], 2) -- Offensive but will take cover
@@ -108,10 +116,10 @@ function createPeds()
             SetPedCombatAttributes(PedCreated[k], 46, true) -- Always fight
             SetPedCombatAttributes(PedCreated[k], 5, true) -- Can Fight without weapons
             SetPedCombatAttributes(PedCreated[k], 0, true) -- Make use of cover
-            GiveWeaponToPed(PedCreated[k], v["weapon"], 999, false, false) -- Give them the specified weapon with ammo
+            if v["weapon"] then
+                GiveWeaponToPed(PedCreated[k], v["weapon_hash"], 999, false, false) -- Give them the specified weapon with ammo
+            end
             SetPedRelationshipGroupHash(PedCreated[k], GetHashKey("HATES_PLAYER")) -- Makes them HATE the player
-    
-            -- SetCurrentPedWeapon(PedCreated[k], v["weapon"], true) -- Sets the peds weapon and forces in hand
             SetPedCanSwitchWeapon(PedCreated[k], true) -- Allow them to switch weapon if applicible
         end
     end
@@ -127,3 +135,17 @@ function deletePeds()
         end
     end
 end
+
+-- [[ Check if the Ped is dead and delete afther 1 Minute ]] --
+CreateThread(function()
+    while true do
+        Wait(5000)
+        if pedSpawned then
+            for _, v in pairs(PedCreated) do
+                if IsEntityDead(v) then 
+                    DeletePed(v)
+                end
+            end
+        end
+    end
+end)
