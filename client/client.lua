@@ -94,7 +94,7 @@ function createPeds()
 
         -- Clothing for MP Characters
         if v["clothing"] then
-            SetPedComponentVariation(PedCreated[k], 2, v["head"], 0, 0)
+            SetPedComponentVariation(PedCreated[k], 2, v["hair"], 0, 0)
             SetPedComponentVariation(PedCreated[k], 3, v["hands"], v["HA_Texture"], 0)
             SetPedComponentVariation(PedCreated[k], 8, v["undershirts"], v["U_Texture"], 0)
             SetPedComponentVariation(PedCreated[k], 11, v["tops"], v["T_Texture"], 0)
