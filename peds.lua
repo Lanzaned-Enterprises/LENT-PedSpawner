@@ -27,6 +27,7 @@ Peds.Placings = {
         
         -- ["hair"] = 7, ["HAIR_Texture"] = 3, ["HAIR_HIGHLIGHT"] = 0,
         -- ["hat"] = -1, ["hat_TEXTURE"] = 0,
+        -- ["mask"] = 2, ["mask_Texture"] = 3,
         -- ["glasses"] = -1, ["glasses_TEXTURE"] = 0,
         -- ["hands"] = 1, ["HA_Texture"] = 0,
         -- ["undershirts"] = 1, ["U_Texture"] = 0,
