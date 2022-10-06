@@ -22,8 +22,12 @@ Peds.Placings = {
 
         -- [[ Do recommand that you use a clothing menu to get the right ID's ]] --
         -- ["clothing"] = true, -- True if ped = "mp_m_freemode_01" || "mp_f_freemode_01" else leave false
+        
         -- ["mother"] = 0, ["father"] = 0, ["mix"] = 0.0,
+        
         -- ["hair"] = 7, ["HAIR_Texture"] = 3, ["HAIR_HIGHLIGHT"] = 0,
+        -- ["hat"] = -1, ["hat_TEXTURE"] = 0,
+        -- ["glasses"] = -1, ["glasses_TEXTURE"] = 0,
         -- ["hands"] = 1, ["HA_Texture"] = 0,
         -- ["undershirts"] = 1, ["U_Texture"] = 0,
         -- ["tops"] = 1, ["T_Texture"] = 0,
@@ -33,6 +37,7 @@ Peds.Placings = {
         -- ["bags"] = 1, ["B_Texture"] = 0,
         -- ["pants"] = 1, ["P_Texture"] = 0,
         -- ["shoes"] = 1, ["S_Texture"] = 0,
+
         -- ["eye_COLOR"] = 2,
         -- ["makeup"] = 1, ["makeup_OPACITY"] = 1.0, ["makeup_COLOR"] = 1, -- leave opacity at 1.0
         -- ["lipstick"] = 0, ["lipstick_OPACITY"] = 1.0, ["lipstick_COLOR"] = 21, -- leave opacity at 1.0
