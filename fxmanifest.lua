@@ -10,7 +10,7 @@ github 'https://github.com/Lanzaned-Enterprises/LENT-PedSpawner'
 docs 'https://lanzaned-development.gitbook.io/lanzaned-development-or-documentation/'
 
 -- [[ Version ]] --
-version '1.1.3'
+version '1.1.4'
 
 -- [[ Dependencies ]] --
 dependencies {
