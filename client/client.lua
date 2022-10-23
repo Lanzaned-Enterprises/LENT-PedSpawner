@@ -19,15 +19,6 @@ AddEventHandler('onResourceStop', function(resourceName)
     end
 end)
 
--- [[ When the player is loaded create the peds (Extra safety to ensure they actually spawn.) ]] -- 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    createPeds()
-end)
--- [[ When the player is unloaded dlete the peds (Extra safety to ensure they actually get deleted.) ]] -
-RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
-    deletePeds()
-end)
-
 -- [[ Function to create the peds ]] --
 function createPeds()
     if pedSpawned then 
@@ -86,6 +77,7 @@ function createPeds()
                         event = v["event"],
                         icon = v["icon"],
                         label = v["text"],
+                        job = v["job"],
                     },
                 },
                 distance = 2.0

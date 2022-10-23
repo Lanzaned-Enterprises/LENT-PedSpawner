@@ -25,6 +25,6 @@ The PedSpawner can be used for a few different scenario's. You can use them to c
 - Adding natives for makeup.
 
 ## Useful Links 
-Discord: https://discord.gg/kmKcHWGqbP<br>
-Github: https://github.com/Lanzaned-Enterprises<br>
-Documentation: https://lanzaned-development.gitbook.io/lanzaned-development-or-documentation/
+Discord: https://discord.lanzaned.com<br>
+Github: https://github.lanzaned.com<br>
+Documentation: https://docs.lanzaned.com/

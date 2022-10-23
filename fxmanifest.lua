@@ -5,12 +5,12 @@ games { 'gta5' }
 -- [[ Author ]] --
 author 'Izumi S. <https://discordapp.com/users/871877975346405388>'
 description 'Lananed Development | ped World Spawner'
-discord 'https://discord.gg/kmKcHWGqbP'
+discord 'https://discord.lanzaned.com'
 github 'https://github.com/Lanzaned-Enterprises/LENT-PedSpawner'
-docs 'https://lanzaned-development.gitbook.io/lanzaned-development-or-documentation/'
+docs 'https://docs.lanzaned.com/'
 
 -- [[ Version ]] --
-version '1.1.4'
+version '1.1.5'
 
 -- [[ Dependencies ]] --
 dependencies {
