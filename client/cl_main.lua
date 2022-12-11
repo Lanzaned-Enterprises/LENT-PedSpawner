@@ -123,7 +123,7 @@ CreateThread(function()
                 SetPedHeadOverlayColor(PedCreated[k], 8, 1, v["lipstick_COLOR"], 0)
                 SetPedHeadOverlay(PedCreated[k], 2, v["eyebrows"], v["eyebrows_OPACITY"])
                 SetPedHeadOverlayColor(PedCreated[k], 2, 1, v["eyebrows_COLOR"], 0)
-                SetPedHeadOverlay(PedCreated[k], 1, v["beard"], v["eyebrows_OPACITY"])
+                SetPedHeadOverlay(PedCreated[k], 1, v["beard"], v["beard_OPACITY"])
                 SetPedHeadOverlayColor(PedCreated[k], 1, 1, v["beard_COLOR"], 0)
                 SetPedEyeColor(PedCreated[k], v['eye_COLOR'])
             end 
@@ -148,3 +148,95 @@ CreateThread(function()
         pedSpawned = true
     end
 end)
+
+local function SpawnPed(data)
+    local spawnedped
+    local key, value = next(data)
+    
+    RequestModel(data.model)
+
+    while not HasModelLoaded(data.model) do
+        Wait(0)
+    end
+
+    if type(data.model) == 'string' then data.model = joaat(data.model) end
+
+    
+    spawnedped = CreatePed(0, data.model, data.coords.x, data.coords.y, data.coords.z - 1.0, data.coords.w, data.networked or false, true)
+
+    if data.customped then
+        SetPedComponentVariation(spawnedped, 2, data.customped.hair, 0, 0)
+        SetPedComponentVariation(spawnedped, 3, data.customped.hands, data.customped.handsTexture, 0)
+        SetPedComponentVariation(spawnedped, 8, data.customped.undershirt, data.customped.undershirtTexture, 0)
+        SetPedComponentVariation(spawnedped, 11, data.customped.top, data.customped.topTexture, 0)
+        SetPedComponentVariation(spawnedped, 9, data.customped.kevlar, data.customped.kevlarTexture, 0)
+        SetPedComponentVariation(spawnedped, 10, data.customped.decal, data.customped.decalTexture, 0)
+        SetPedComponentVariation(spawnedped, 7, data.customped.accessory, data.customped.accessoryTexture, 0)
+        SetPedComponentVariation(spawnedped, 5, data.customped.bags, data.customped.bagsTexture, 0)
+        SetPedComponentVariation(spawnedped, 4, data.customped.pants, data.customped.pantsTexture, 0)
+        SetPedComponentVariation(spawnedped, 6, data.customped.shoes, data.customped.shoesTexture, 0)
+        SetPedComponentVariation(spawnedped, 1, data.customped.mask, data.customped.maskTexture, 0)
+
+        SetPedPropIndex(spawnedped, 0, data.customped.hat, data.customped.hatTexture, true)
+        SetPedPropIndex(spawnedped, 1, data.customped.glasses, data.customped.glassesTexture, true)
+        
+        SetPedHeadBlendData(spawnedped, data.customped.mother, data.customped.father, 0,0, 0, 0, 0, data.customped.parentMix, 0, false)
+        
+        SetPedHairColor(spawnedped, data.customped.hairTexture, data.customped.hairHighlight)
+        
+        SetPedHeadOverlay(spawnedped, 4, data.customped.makeup, data.customped.makeupOppacity)
+        SetPedHeadOverlayColor(spawnedped, 4, 1, data.customped.makeupColor, 0)
+        
+        SetPedHeadOverlay(spawnedped, 8, data.customped.lipstick, data.customped.lipstickOpacity)
+        SetPedHeadOverlayColor(spawnedped, 8, 1, data.customped.lipstickColor, 0)
+        
+        SetPedHeadOverlay(spawnedped, 2, data.customped.eyebrows, data.customped.eyebrowsOpacity)
+        SetPedHeadOverlayColor(spawnedped, 2, 1, data.customped.eyebrowsColor, 0)
+        
+        SetPedHeadOverlay(spawnedped, 1, data.customped.beard, data.customped.beardOpacity)
+        SetPedHeadOverlayColor(spawnedped, 1, 1, data.customped.beardColor, 0)
+        
+        SetPedEyeColor(spawnedped, data.customped.eyeColor)
+    end
+
+    if data.allsettings then
+        FreezeEntityPosition(spawnedped, true)
+        SetEntityInvincible(spawnedped, true)
+        SetBlockingOfNonTemporaryEvents(spawnedped, true)
+        SetPedCanPlayAmbientAnims(spawnedped, true)
+        TaskStartScenarioInPlace(spawnedped, data.allsettings.scenario, 0, true)
+    elseif not data.allsettings then
+        if data.freeze then
+            FreezeEntityPosition(spawnedped, true)
+        end
+
+        if data.invincible then
+            SetEntityInvincible(spawnedped, true)
+        end
+
+        if data.blockevents then
+            SetBlockingOfNonTemporaryEvents(spawnedped, true)
+        end
+
+        if data.scenario then
+            SetPedCanPlayAmbientAnims(spawnedped, true)
+            TaskStartScenarioInPlace(spawnedped, data.scenario, 0, true)
+        end
+    end
+
+    if data.target then
+        exports['qb-target']:AddTargetModel(data.model, {
+            options = data.target.options,
+            distance = data.target.distance
+        })
+    end
+
+    data.currentpednumber = spawnedped
+
+    -- [[ Making sure peds are individual ]] --
+    local nextnumber = #Exports.Peds + 1
+    if nextnumber <= 0 then nextnumber = 1 end
+
+    Exports.Peds[nextnumber] = data
+    
+end exports("SpawnPed", SpawnPed)

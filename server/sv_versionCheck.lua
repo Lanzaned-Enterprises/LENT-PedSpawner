@@ -1,5 +1,5 @@
 --[[ Version Checker ]] --
-local version = 116
+local version = "200"
 
 AddEventHandler("onResourceStart", function(resource)
     if resource == GetCurrentResourceName() then
@@ -28,7 +28,7 @@ end
 
 function checkResourceVersion()
     PerformHttpRequest("https://raw.githubusercontent.com/Lanzaned-Enterprises/LENT-PedSpawner/main/version.txt", function(err, text, headers)
-        if (version > text) then
+        if (tonumber(version) > tonumber(text)) then
             print(" ")
             print("---------- LANZANED PEDSPAWNER ----------")
             print("PedSpawner is using a Development Build! Please download stable!")
@@ -37,7 +37,7 @@ function checkResourceVersion()
             print("-----------------------------------------")
             print(" ")
             checkUpdateEmbed(5242880, "PedSpawner Update Checker", "PedSpawner is using a Development Build! Please download stable!\nCurent Version: " .. version .. " Latest Version: " .. text .. "\nhttps://github.com/Lanzaned-Enterprises/LENT-PedSpawner", "Script created by: https://discord.lanzaned.com")
-        elseif (version < text) then
+        elseif (tonumber(version) < tonumber(text)) then
             print(" ")
             print("---------- LANZANED PEDSPAWNER ----------")
             print("PedSpawner is not up to date! Please update!")
