@@ -5,6 +5,12 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local pedSpawned = false
 local PedCreated = {}
 
+local pedSpawned2 = false
+local PedCreated2 = {}
+
+local pedSpawned3 = false
+local PedCreated3 = {}
+
 -- [[ When the resource stops delete all the peds ]] -- 
 AddEventHandler('onResourceStop', function(resourceName)
     if GetCurrentResourceName() == resourceName then
@@ -19,6 +25,18 @@ function deletePeds()
             DeletePed(v)
         end
     end
+
+    if pedSpawned2 then
+        for _, v in pairs(PedCreated2) do
+            DeletePed(v)
+        end
+    end
+
+    if pedSpawned3 then
+        for _, v in pairs(PedCreated3) do
+            DeletePed(v)
+        end
+    end
 end
 
 -- [[ Check if the Ped is dead and delete afther 1 Minute ]] --
@@ -27,6 +45,22 @@ CreateThread(function()
         Wait(5000)
         if pedSpawned then
             for _, v in pairs(PedCreated) do
+                if IsEntityDead(v) then 
+                    DeletePed(v)
+                end
+            end
+        end
+
+        if pedSpawned2 then
+            for _, v in pairs(PedCreated2) do
+                if IsEntityDead(v) then 
+                    DeletePed(v)
+                end
+            end
+        end
+
+        if pedSpawned3 then
+            for _, v in pairs(PedCreated3) do
                 if IsEntityDead(v) then 
                     DeletePed(v)
                 end
@@ -152,13 +186,13 @@ end)
 
 CreateThread(function()
     for k, v in pairs(Peds.Placings["2ndEvent"]) do
-        if pedSpawned then 
+        if pedSpawned2 then 
             return 
         end
     
         for k, v in pairs(Peds.Placings["2ndEvent"]) do
-            if not PedCreated[k] then 
-                PedCreated[k] = {} 
+            if not PedCreated2[k] then 
+                PedCreated2[k] = {} 
             end
     
             local current = v["ped"]
@@ -170,38 +204,38 @@ CreateThread(function()
             end
     
             -- The coords + heading of the Ped
-            PedCreated[k] = CreatePed(0, current, v["coords"].x, v["coords"].y, v["coords"].z-1, v["coords"].w, false, false)
+            PedCreated2[k] = CreatePed(0, current, v["coords"].x, v["coords"].y, v["coords"].z-1, v["coords"].w, false, false)
             
             -- Start the scneario in a basic loop
-            TaskStartScenarioInPlace(PedCreated[k], v["scenario"], true)
+            TaskStartScenarioInPlace(PedCreated2[k], v["scenario"], true)
             
             if v["freeze"] then
                 -- Let the entity stay in posistion
-                FreezeEntityPosition(PedCreated[k], true)
+                FreezeEntityPosition(PedCreated2[k], true)
             end
     
             if v["invincible"] then
                 -- Set the ped to be invincible
-                SetEntityInvincible(PedCreated[k], true)
+                SetEntityInvincible(PedCreated2[k], true)
             end
     
             if v["weapon"] then
                 -- Give the ped a weapon with 999 ammo
-                GiveWeaponToPed(PedCreated[k], v["weapon_hash"], 999, false, true) -- Give them the specified weapon with ammo
+                GiveWeaponToPed(PedCreated2[k], v["weapon_hash"], 999, false, true) -- Give them the specified weapon with ammo
                 -- Set the weapon equiped
-                SetCurrentPedWeapon(PedCreated[k], v["weapon_hash"], true)
+                SetCurrentPedWeapon(PedCreated2[k], v["weapon_hash"], true)
                 -- Let the ped switch weapons
-                SetPedCanSwitchWeapon(PedCreated[k], true) -- Allow them to switch weapon if applicible
+                SetPedCanSwitchWeapon(PedCreated2[k], true) -- Allow them to switch weapon if applicible
             end
     
             -- Block events like bumping
             if v["block_events"] then
-                SetBlockingOfNonTemporaryEvents(PedCreated[k], true)
+                SetBlockingOfNonTemporaryEvents(PedCreated2[k], true)
             end
     
             -- Target Stuff.. Read Config
             if v["target"] then
-                exports['qb-target']:AddTargetEntity(PedCreated[k], {
+                exports['qb-target']:AddTargetEntity(PedCreated2[k], {
                     options = {
                         {
                             num = 1,
@@ -226,62 +260,62 @@ CreateThread(function()
     
             -- Clothing for MP Characters
             if v["clothing"] then
-                SetPedComponentVariation(PedCreated[k], 2, v["hair"], 0, 0)
-                SetPedComponentVariation(PedCreated[k], 3, v["hands"], v["HA_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 8, v["undershirts"], v["U_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 11, v["tops"], v["T_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 9, v["kevlar"], v["K_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 10, v["decal"], v["D_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 7, v["accs"], v["A_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 5, v["bags"], v["B_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 4, v["pants"], v["P_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 6, v["shoes"], v["S_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 1, v["mask"], v["mask_Texture"], 0)
-                SetPedPropIndex(PedCreated[k], 0, v['hat'], v['hat_TEXTURE'], true)
-                SetPedPropIndex(PedCreated[k], 1, v['glasses'], v['glasses_TEXTURE'], true)
-                SetPedHeadBlendData(PedCreated[k], v["mother"], v["father"], 0,0, 0, 0, 0, v["mix"], 0, false)
-                SetPedHairColor(PedCreated[k], v["HAIR_Texture"], v["HAIR_HIGHLIGHT"])
-                SetPedHeadOverlay(PedCreated[k], 4, v["makeup"], v["makeup_OPACITY"])
-                SetPedHeadOverlayColor(PedCreated[k], 4, 1, v["makeup_COLOR"], 0)
-                SetPedHeadOverlay(PedCreated[k], 8, v["lipstick"], v["lipstick_OPACITY"])
-                SetPedHeadOverlayColor(PedCreated[k], 8, 1, v["lipstick_COLOR"], 0)
-                SetPedHeadOverlay(PedCreated[k], 2, v["eyebrows"], v["eyebrows_OPACITY"])
-                SetPedHeadOverlayColor(PedCreated[k], 2, 1, v["eyebrows_COLOR"], 0)
-                SetPedHeadOverlay(PedCreated[k], 1, v["beard"], v["beard_OPACITY"])
-                SetPedHeadOverlayColor(PedCreated[k], 1, 1, v["beard_COLOR"], 0)
-                SetPedEyeColor(PedCreated[k], v['eye_COLOR'])
+                SetPedComponentVariation(PedCreated2[k], 2, v["hair"], 0, 0)
+                SetPedComponentVariation(PedCreated2[k], 3, v["hands"], v["HA_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 8, v["undershirts"], v["U_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 11, v["tops"], v["T_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 9, v["kevlar"], v["K_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 10, v["decal"], v["D_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 7, v["accs"], v["A_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 5, v["bags"], v["B_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 4, v["pants"], v["P_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 6, v["shoes"], v["S_Texture"], 0)
+                SetPedComponentVariation(PedCreated2[k], 1, v["mask"], v["mask_Texture"], 0)
+                SetPedPropIndex(PedCreated2[k], 0, v['hat'], v['hat_TEXTURE'], true)
+                SetPedPropIndex(PedCreated2[k], 1, v['glasses'], v['glasses_TEXTURE'], true)
+                SetPedHeadBlendData(PedCreated2[k], v["mother"], v["father"], 0,0, 0, 0, 0, v["mix"], 0, false)
+                SetPedHairColor(PedCreated2[k], v["HAIR_Texture"], v["HAIR_HIGHLIGHT"])
+                SetPedHeadOverlay(PedCreated2[k], 4, v["makeup"], v["makeup_OPACITY"])
+                SetPedHeadOverlayColor(PedCreated2[k], 4, 1, v["makeup_COLOR"], 0)
+                SetPedHeadOverlay(PedCreated2[k], 8, v["lipstick"], v["lipstick_OPACITY"])
+                SetPedHeadOverlayColor(PedCreated2[k], 8, 1, v["lipstick_COLOR"], 0)
+                SetPedHeadOverlay(PedCreated2[k], 2, v["eyebrows"], v["eyebrows_OPACITY"])
+                SetPedHeadOverlayColor(PedCreated2[k], 2, 1, v["eyebrows_COLOR"], 0)
+                SetPedHeadOverlay(PedCreated2[k], 1, v["beard"], v["beard_OPACITY"])
+                SetPedHeadOverlayColor(PedCreated2[k], 1, 1, v["beard_COLOR"], 0)
+                SetPedEyeColor(PedCreated2[k], v['eye_COLOR'])
             end 
             -- Natives should really be used more they're neat to spawn MP characters
     
             if v["hostile"] then
-                SetPedAsEnemy(PedCreated[k], true) -- Ped is now an enemy
-                SetPedCombatMovement(PedCreated[k], 2) -- Offensive but will take cover
-                SetPedCombatRange(PedCreated[k], 1) -- Medium Range
-                SetPedAlertness(PedCreated[k], 3) -- Unsure but recommanded
-                SetPedCombatAttributes(PedCreated[k], 46, true) -- Always fight
-                SetPedCombatAttributes(PedCreated[k], 5, true) -- Can Fight without weapons
-                SetPedCombatAttributes(PedCreated[k], 0, true) -- Make use of cover
+                SetPedAsEnemy(PedCreated2[k], true) -- Ped is now an enemy
+                SetPedCombatMovement(PedCreated2[k], 2) -- Offensive but will take cover
+                SetPedCombatRange(PedCreated2[k], 1) -- Medium Range
+                SetPedAlertness(PedCreated2[k], 3) -- Unsure but recommanded
+                SetPedCombatAttributes(PedCreated2[k], 46, true) -- Always fight
+                SetPedCombatAttributes(PedCreated2[k], 5, true) -- Can Fight without weapons
+                SetPedCombatAttributes(PedCreated2[k], 0, true) -- Make use of cover
                 if v["weapon"] then
-                    GiveWeaponToPed(PedCreated[k], v["weapon_hash"], 999, false, false) -- Give them the specified weapon with ammo
+                    GiveWeaponToPed(PedCreated2[k], v["weapon_hash"], 999, false, false) -- Give them the specified weapon with ammo
                 end
-                SetPedRelationshipGroupHash(PedCreated[k], GetHashKey("HATES_PLAYER")) -- Makes them HATE the player
-                SetPedCanSwitchWeapon(PedCreated[k], true) -- Allow them to switch weapon if applicible
+                SetPedRelationshipGroupHash(PedCreated2[k], GetHashKey("HATES_PLAYER")) -- Makes them HATE the player
+                SetPedCanSwitchWeapon(PedCreated2[k], true) -- Allow them to switch weapon if applicible
             end
         end
     
-        pedSpawned = true
+        pedSpawned2 = true
     end
 end)
 
 CreateThread(function()
     for k, v in pairs(Peds.Placings["3rdEvent"]) do
-        if pedSpawned then 
+        if pedSpawned3 then 
             return 
         end
     
         for k, v in pairs(Peds.Placings["3rdEvent"]) do
-            if not PedCreated[k] then 
-                PedCreated[k] = {} 
+            if not PedCreated3[k] then 
+                PedCreated3[k] = {} 
             end
     
             local current = v["ped"]
@@ -293,38 +327,38 @@ CreateThread(function()
             end
     
             -- The coords + heading of the Ped
-            PedCreated[k] = CreatePed(0, current, v["coords"].x, v["coords"].y, v["coords"].z-1, v["coords"].w, false, false)
+            PedCreated3[k] = CreatePed(0, current, v["coords"].x, v["coords"].y, v["coords"].z-1, v["coords"].w, false, false)
             
             -- Start the scneario in a basic loop
-            TaskStartScenarioInPlace(PedCreated[k], v["scenario"], true)
+            TaskStartScenarioInPlace(PedCreated3[k], v["scenario"], true)
             
             if v["freeze"] then
                 -- Let the entity stay in posistion
-                FreezeEntityPosition(PedCreated[k], true)
+                FreezeEntityPosition(PedCreated3[k], true)
             end
     
             if v["invincible"] then
                 -- Set the ped to be invincible
-                SetEntityInvincible(PedCreated[k], true)
+                SetEntityInvincible(PedCreated3[k], true)
             end
     
             if v["weapon"] then
                 -- Give the ped a weapon with 999 ammo
-                GiveWeaponToPed(PedCreated[k], v["weapon_hash"], 999, false, true) -- Give them the specified weapon with ammo
+                GiveWeaponToPed(PedCreated3[k], v["weapon_hash"], 999, false, true) -- Give them the specified weapon with ammo
                 -- Set the weapon equiped
-                SetCurrentPedWeapon(PedCreated[k], v["weapon_hash"], true)
+                SetCurrentPedWeapon(PedCreated3[k], v["weapon_hash"], true)
                 -- Let the ped switch weapons
-                SetPedCanSwitchWeapon(PedCreated[k], true) -- Allow them to switch weapon if applicible
+                SetPedCanSwitchWeapon(PedCreated3[k], true) -- Allow them to switch weapon if applicible
             end
     
             -- Block events like bumping
             if v["block_events"] then
-                SetBlockingOfNonTemporaryEvents(PedCreated[k], true)
+                SetBlockingOfNonTemporaryEvents(PedCreated3[k], true)
             end
     
             -- Target Stuff.. Read Config
             if v["target"] then
-                exports['qb-target']:AddTargetEntity(PedCreated[k], {
+                exports['qb-target']:AddTargetEntity(PedCreated3[k], {
                     options = {
                         {
                             num = 1,
@@ -357,50 +391,50 @@ CreateThread(function()
     
             -- Clothing for MP Characters
             if v["clothing"] then
-                SetPedComponentVariation(PedCreated[k], 2, v["hair"], 0, 0)
-                SetPedComponentVariation(PedCreated[k], 3, v["hands"], v["HA_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 8, v["undershirts"], v["U_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 11, v["tops"], v["T_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 9, v["kevlar"], v["K_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 10, v["decal"], v["D_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 7, v["accs"], v["A_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 5, v["bags"], v["B_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 4, v["pants"], v["P_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 6, v["shoes"], v["S_Texture"], 0)
-                SetPedComponentVariation(PedCreated[k], 1, v["mask"], v["mask_Texture"], 0)
-                SetPedPropIndex(PedCreated[k], 0, v['hat'], v['hat_TEXTURE'], true)
-                SetPedPropIndex(PedCreated[k], 1, v['glasses'], v['glasses_TEXTURE'], true)
-                SetPedHeadBlendData(PedCreated[k], v["mother"], v["father"], 0,0, 0, 0, 0, v["mix"], 0, false)
-                SetPedHairColor(PedCreated[k], v["HAIR_Texture"], v["HAIR_HIGHLIGHT"])
-                SetPedHeadOverlay(PedCreated[k], 4, v["makeup"], v["makeup_OPACITY"])
-                SetPedHeadOverlayColor(PedCreated[k], 4, 1, v["makeup_COLOR"], 0)
-                SetPedHeadOverlay(PedCreated[k], 8, v["lipstick"], v["lipstick_OPACITY"])
-                SetPedHeadOverlayColor(PedCreated[k], 8, 1, v["lipstick_COLOR"], 0)
-                SetPedHeadOverlay(PedCreated[k], 2, v["eyebrows"], v["eyebrows_OPACITY"])
-                SetPedHeadOverlayColor(PedCreated[k], 2, 1, v["eyebrows_COLOR"], 0)
-                SetPedHeadOverlay(PedCreated[k], 1, v["beard"], v["beard_OPACITY"])
-                SetPedHeadOverlayColor(PedCreated[k], 1, 1, v["beard_COLOR"], 0)
-                SetPedEyeColor(PedCreated[k], v['eye_COLOR'])
+                SetPedComponentVariation(PedCreated3[k], 2, v["hair"], 0, 0)
+                SetPedComponentVariation(PedCreated3[k], 3, v["hands"], v["HA_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 8, v["undershirts"], v["U_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 11, v["tops"], v["T_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 9, v["kevlar"], v["K_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 10, v["decal"], v["D_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 7, v["accs"], v["A_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 5, v["bags"], v["B_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 4, v["pants"], v["P_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 6, v["shoes"], v["S_Texture"], 0)
+                SetPedComponentVariation(PedCreated3[k], 1, v["mask"], v["mask_Texture"], 0)
+                SetPedPropIndex(PedCreated3[k], 0, v['hat'], v['hat_TEXTURE'], true)
+                SetPedPropIndex(PedCreated3[k], 1, v['glasses'], v['glasses_TEXTURE'], true)
+                SetPedHeadBlendData(PedCreated3[k], v["mother"], v["father"], 0,0, 0, 0, 0, v["mix"], 0, false)
+                SetPedHairColor(PedCreated3[k], v["HAIR_Texture"], v["HAIR_HIGHLIGHT"])
+                SetPedHeadOverlay(PedCreated3[k], 4, v["makeup"], v["makeup_OPACITY"])
+                SetPedHeadOverlayColor(PedCreated3[k], 4, 1, v["makeup_COLOR"], 0)
+                SetPedHeadOverlay(PedCreated3[k], 8, v["lipstick"], v["lipstick_OPACITY"])
+                SetPedHeadOverlayColor(PedCreated3[k], 8, 1, v["lipstick_COLOR"], 0)
+                SetPedHeadOverlay(PedCreated3[k], 2, v["eyebrows"], v["eyebrows_OPACITY"])
+                SetPedHeadOverlayColor(PedCreated3[k], 2, 1, v["eyebrows_COLOR"], 0)
+                SetPedHeadOverlay(PedCreated3[k], 1, v["beard"], v["beard_OPACITY"])
+                SetPedHeadOverlayColor(PedCreated3[k], 1, 1, v["beard_COLOR"], 0)
+                SetPedEyeColor(PedCreated3[k], v['eye_COLOR'])
             end 
             -- Natives should really be used more they're neat to spawn MP characters
     
             if v["hostile"] then
-                SetPedAsEnemy(PedCreated[k], true) -- Ped is now an enemy
-                SetPedCombatMovement(PedCreated[k], 2) -- Offensive but will take cover
-                SetPedCombatRange(PedCreated[k], 1) -- Medium Range
-                SetPedAlertness(PedCreated[k], 3) -- Unsure but recommanded
-                SetPedCombatAttributes(PedCreated[k], 46, true) -- Always fight
-                SetPedCombatAttributes(PedCreated[k], 5, true) -- Can Fight without weapons
-                SetPedCombatAttributes(PedCreated[k], 0, true) -- Make use of cover
+                SetPedAsEnemy(PedCreated3[k], true) -- Ped is now an enemy
+                SetPedCombatMovement(PedCreated3[k], 2) -- Offensive but will take cover
+                SetPedCombatRange(PedCreated3[k], 1) -- Medium Range
+                SetPedAlertness(PedCreated3[k], 3) -- Unsure but recommanded
+                SetPedCombatAttributes(PedCreated3[k], 46, true) -- Always fight
+                SetPedCombatAttributes(PedCreated3[k], 5, true) -- Can Fight without weapons
+                SetPedCombatAttributes(PedCreated3[k], 0, true) -- Make use of cover
                 if v["weapon"] then
-                    GiveWeaponToPed(PedCreated[k], v["weapon_hash"], 999, false, false) -- Give them the specified weapon with ammo
+                    GiveWeaponToPed(PedCreated3[k], v["weapon_hash"], 999, false, false) -- Give them the specified weapon with ammo
                 end
-                SetPedRelationshipGroupHash(PedCreated[k], GetHashKey("HATES_PLAYER")) -- Makes them HATE the player
-                SetPedCanSwitchWeapon(PedCreated[k], true) -- Allow them to switch weapon if applicible
+                SetPedRelationshipGroupHash(PedCreated3[k], GetHashKey("HATES_PLAYER")) -- Makes them HATE the player
+                SetPedCanSwitchWeapon(PedCreated3[k], true) -- Allow them to switch weapon if applicible
             end
         end
     
-        pedSpawned = true
+        pedSpawned3 = true
     end
 end)
 
